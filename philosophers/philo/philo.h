@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:07:49 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/23 17:32:12 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/03/23 17:56:11 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ struct s_container
 };			
 
 //utils.c
-void	ft_error(const char *error);
+bool	ft_error(const char *error);
 
 //philo_parser.c
 void	ft_input_parse_n_init(t_container *container, char **av);
