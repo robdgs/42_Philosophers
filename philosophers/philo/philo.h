@@ -6,9 +6,12 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:07:49 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/02/23 20:21:12 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/03/23 17:32:12 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef PHILO_H
+# define PHILO_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -55,11 +58,11 @@ typedef struct	s_philo
 //plus I need a struct where to put the input line data, a container
 struct s_container
 {
-	long	hm_philos; //how many philos
+	int		hm_philos; //how many philos
 	long	time_to_die;
 	long	time_to_eat;
 	long	time_to_nap;
-	long	max_meals; //limit of how many meals each philo can have || FLAG
+	int		max_meals; //limit of how many meals each philo can have || FLAG
 	long	start_simulation; //time when the sim starts
 	bool	end_sim; // triggered when a philo dies or all philos are full
 	t_philo	*philos; //ptr to array of philos
@@ -67,7 +70,10 @@ struct s_container
 };			
 
 //utils.c
-void	ft_exit_error(const char *error);
+void	ft_error(const char *error);
 
 //philo_parser.c
-void ft_parser(t_container *container, char **av);
+void	ft_input_parse_n_init(t_container *container, char **av);
+
+
+#endif
