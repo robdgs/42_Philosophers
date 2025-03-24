@@ -2,7 +2,7 @@ NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
 RM = rm -f
-SRCS = main.c philo_parser.c utils.c
+SRCS = main.c philo_parser.c utils.c philo_creator.c guardians.c
 
 all:	${NAME}
 

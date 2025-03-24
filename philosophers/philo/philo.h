@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:07:49 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/23 17:56:11 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:08:46 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,25 @@
 #include <sys/time.h> //gettimeofday
 #include <limits.h>
 #include <stdbool.h>
+#include <errno.h>
 
 #define RED "\033[1;31m"
 #define GREEN "\033[1;32m"
 #define RESET "\033[0m"
 
+//operation codes for cpu (mutex && threads) (enum x indicizzazione)
+typedef	enum	e_opcode
+{
+	LOCK,
+	UNLOCK,
+	INIT,
+	CREATE,
+	DESTROY,
+	DETACH
+}	t_opcode;
+
 //new types to shorten my lines
-typedef pthread_mutex_t type_mutex;
+typedef pthread_mutex_t t_mutex;
 //
 typedef struct s_container t_container; //declared here to avoid compiler's rage
 //The dining philosophers problem:
@@ -39,7 +51,7 @@ typedef struct s_container t_container; //declared here to avoid compiler's rage
 //what is a fork? a fork is simply a mutex: I'll have an array of mutex
 typedef struct	s_fork
 {
-	type_mutex	fork;
+	t_mutex		fork;
 	int			fork_id;
 }				t_fork;
 
@@ -71,6 +83,10 @@ struct s_container
 
 //utils.c
 bool	ft_error(const char *error);
+
+//guardians.c
+void	*ft_malloc(size_t bytes);
+void	ft_mutex_caller(t_mutex *mutex, t_opcode opcode);
 
 //philo_parser.c
 void	ft_input_parse_n_init(t_container *container, char **av);
