@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:07:49 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/25 15:26:46 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:37:29 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct	s_fork
 //what is a philo? every philo is a struct: I'll have an array of struct
 typedef struct	s_philo
 {
-	int			philo_id;
+	int			philo_id; //NOT THE POSITION IN THE ARRAY
 	long		hm_meals; //meals counter
 	bool		is_full;
 	long		lmeal_time; //time passed from last meal
@@ -99,7 +99,7 @@ void	ft_mutex_caller(t_mutex *mutex, t_opcode opcode);
 void	ft_thread_handle(pthread_t *thread, void *(*foo)(void *),
 		void *data, t_opcode opcode);
 
-//philo_parser.c
+//parser.c
 void	ft_input_parse_n_init(t_container *container, char **av);
 
 
