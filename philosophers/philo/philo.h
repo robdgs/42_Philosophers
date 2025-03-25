@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:07:49 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/24 18:08:46 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:26:46 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef	enum	e_opcode
 	LOCK,
 	UNLOCK,
 	INIT,
+	JOIN,
 	CREATE,
 	DESTROY,
 	DETACH
@@ -49,6 +50,14 @@ typedef struct s_container t_container; //declared here to avoid compiler's rage
 */
 
 //what is a fork? a fork is simply a mutex: I'll have an array of mutex
+/* Per realizzare l'esclusione mutua(MUT EX) si assegna a un oggetto o porzione 
+di programma (sezione critica) un elemento che va sempre controllato prima 
+che un altro processo o thread possa eseguire istruzioni sull'oggetto stesso. 
+Se un processo o thread sta già accedendo all'oggetto, tutti gli altri devono 
+aspettare che il primo finisca. Gli oggetti mutex utilizzati per coordinare 
+processi diversi devono essere di per sé accessibili a tutti i processi 
+coinvolti, il che implica necessariamente l'uso di memoria condivisa, 
+oppure gestita direttamente dal sistema operativo. */
 typedef struct	s_fork
 {
 	t_mutex		fork;
@@ -87,6 +96,8 @@ bool	ft_error(const char *error);
 //guardians.c
 void	*ft_malloc(size_t bytes);
 void	ft_mutex_caller(t_mutex *mutex, t_opcode opcode);
+void	ft_thread_handle(pthread_t *thread, void *(*foo)(void *),
+		void *data, t_opcode opcode);
 
 //philo_parser.c
 void	ft_input_parse_n_init(t_container *container, char **av);
