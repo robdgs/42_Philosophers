@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 18:35:45 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/25 16:36:36 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/03/26 19:10:55 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,29 @@
 	t_fork		l_fork;
 	pthread_t	thread_id; //philo_id, philo === a thread
 	t_container *container; */
-//p -> position in container
+//p -> position in container == THE i value of philo init, i know how 
+//	many philos are there
+/* 
+right fork -> philo_id - 1 == position in the array
+la frchetta sinistra dell'ultimo filosofo e' la forchetta zero, quindi
+left fork -> (philo_id + 1) % quanti filosofi ossia p
+ESEMPIO (4 + 1) % 5 = 0 La forchetta left dell'ultimo philo e' la 0
+CIRCULAR OBJECT ---->> MODULE OPERATOR %
+*/
+//attenzione possibili deadlock qui
 static void ft_give_forks(t_philo *philo, t_fork *forks, int p)
 {
 	
+	if(philo->philo_id % 2 == 0)
+	{
+		philo->f_fork = forks[p];
+		philo->s_fork = forks[(p + 1) % philo->container->hm_philos];
+	}
+	else
+	{
+		philo->f_fork = forks[(p + 1) % philo->container->hm_philos];
+		philo->s_fork = forks[p];
+	}
 }
 
 static void	ft_philo_init(t_container *container)
@@ -43,7 +62,6 @@ static void	ft_philo_init(t_container *container)
 		container->philos->is_full = false;
 		container->philos->hm_meals = 0;
 		ft_give_forks(container->philos, container->forks, i);
-		
 	}
 	
 }
@@ -58,8 +76,8 @@ void	ft_global_init(t_container *container)
 	container->forks = ft_malloc(sizeof(t_fork) * container->hm_philos);
 	while(++i < container->hm_philos)
 	{
-		ft_mutex_caller(&container->forks[i],INIT);
+		ft_mutex_caller(&container->forks[i].fork,INIT);
 		container->forks[i].fork_id = i;
 	}
-	ft_philo_init(container); //doing
+	ft_philo_init(container);
 }
