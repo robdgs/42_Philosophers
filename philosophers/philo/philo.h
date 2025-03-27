@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:07:49 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/26 19:11:44 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/03/27 18:43:21 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ typedef struct	s_fork
 typedef struct	s_philo
 {
 	int			philo_id; //NOT THE POSITION IN THE ARRAY
-	long		hm_meals; //meals counter
+	int		hm_meals; //meals counter
 	bool		is_full;
-	long		lmeal_time; //time passed from last meal
+	int		lmeal_time; //time passed from last meal
 	t_fork		f_fork;
 	t_fork		s_fork;
 	pthread_t	thread_id; //philo_id, philo === a thread
@@ -79,12 +79,14 @@ typedef struct	s_philo
 //plus I need a struct where to put the input line data, a container
 struct s_container
 {
-	int		hm_philos; //how many philos
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_nap;
-	int		max_meals; //limit of how many meals each philo can have || FLAG
-	long	start_simulation; //time when the sim starts
+	int	hm_philos; //how many philos
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_nap;
+	int	max_meals; //limit of how many meals each philo can have || FLAG
+	bool	sync;
+	t_mutex	container_mtx;
+	int	start_simulation; //time when the sim starts
 	bool	end_sim; // triggered when a philo dies or all philos are full
 	t_philo	*philos; //ptr to array of philos
 	t_fork	*forks; //ptr to array of forks
@@ -97,9 +99,18 @@ void	*ft_malloc(size_t bytes);
 void	ft_mutex_caller(t_mutex *mutex, t_opcode opcode);
 void	ft_thread_handle(pthread_t *thread, void *(*foo)(void *),
 		void *data, t_opcode opcode);
-//parser
+//parse
 void	ft_input_parse_n_init(t_container *container, char **av);
 //init
 void	ft_global_init(t_container *container);
+//getters -> syncro
+bool	ft_get_bool(t_mutex *mutex, bool *val);
+int		ft_get_int(t_mutex *mutex, int *val);
+//setters -> syncro
+void	ft_set_bool(t_mutex *mutex, bool *dest, bool val);
+int		ft_set_int(t_mutex *mutex, int *dest, int val);
+//synchro and monitor
+void	ft_synchronizer(t_container	*container);
+
 
 #endif

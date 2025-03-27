@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 18:35:45 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/26 19:10:55 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/03/27 18:15:22 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 //philo:
 /* 	
 	int			philo_id;
-	long		hm_meals; //meals counter
+	int		hm_meals; //meals counter
 	bool		is_full;
-	long		lmeal_time; //time passed from last meal
+	int		lmeal_time; //time passed from last meal
 	t_fork		r_fork;
 	t_fork		l_fork;
 	pthread_t	thread_id; //philo_id, philo === a thread
@@ -73,6 +73,7 @@ void	ft_global_init(t_container *container)
 	i = -1;
 	container->end_sim = false;
 	container->philos = ft_malloc(sizeof(t_philo) * container->hm_philos);
+	ft_mutex_caller(&container->container_mtx, INIT);
 	container->forks = ft_malloc(sizeof(t_fork) * container->hm_philos);
 	while(++i < container->hm_philos)
 	{
@@ -81,3 +82,4 @@ void	ft_global_init(t_container *container)
 	}
 	ft_philo_init(container);
 }
+

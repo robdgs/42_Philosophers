@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 20:13:38 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/25 16:21:06 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/03/27 18:15:44 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static  bool	ft_is_valid(char *str)
     return true;
 }
 
-static long	ft_atol(char *str)
+static int	ft_atoi(char *str)
 {
-	int			i;
-	long int	result;
-    long int    prev_result;
+	int	i;
+	int result;
+    int prev_result;
 	bool		flag;
 	
 	i = 0;
@@ -62,7 +62,7 @@ static long	ft_atol(char *str)
 
 static void ft_parse_max_meals(t_container *container, char **av)
 {
-    long max_meals;
+    int max_meals;
     
     container->max_meals = -1;
     if (av[5])
@@ -75,10 +75,10 @@ static void ft_parse_max_meals(t_container *container, char **av)
 
 void ft_input_parse_n_init(t_container *container, char **av)
 {
-    long philo_count;
-    long time_die;
-    long time_eat;
-    long time_nap;
+    int philo_count;
+    int time_die;
+    int time_eat;
+    int time_nap;
     
     philo_count = ft_atol(av[1]);
     time_die = ft_atol(av[2]);
