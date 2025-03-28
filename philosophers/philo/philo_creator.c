@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 18:35:45 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/27 18:15:22 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/03/28 20:16:08 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,14 @@ static void	ft_philo_init(t_container *container)
 	i = -1;
 	while(++i < container->hm_philos)
 	{
-		container->philos->container = container;
-		container->philos->philo_id = i;
-		container->philos->is_full = false;
-		container->philos->hm_meals = 0;
-		ft_give_forks(container->philos, container->forks, i);
+		container->philos[i].container = container;
+		container->philos[i].philo_id = i;
+		container->philos[i].is_full = false;
+		container->philos[i].hm_meals = 0;
+		ft_mutex_caller(&container->philos[i].philo_mutex, INIT);
+		ft_give_forks(&container->philos[i], container->forks, i);
 	}
+	container->sync = false;
 	
 }
 	
@@ -74,6 +76,7 @@ void	ft_global_init(t_container *container)
 	container->end_sim = false;
 	container->philos = ft_malloc(sizeof(t_philo) * container->hm_philos);
 	ft_mutex_caller(&container->container_mtx, INIT);
+	ft_mutex_caller(&container->write_mtx, INIT);
 	container->forks = ft_malloc(sizeof(t_fork) * container->hm_philos);
 	while(++i < container->hm_philos)
 	{
@@ -82,4 +85,5 @@ void	ft_global_init(t_container *container)
 	}
 	ft_philo_init(container);
 }
+
 

@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 20:13:38 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/27 18:15:44 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/03/28 18:34:07 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void ft_parse_max_meals(t_container *container, char **av)
     container->max_meals = -1;
     if (av[5])
     {
-        max_meals = ft_atol(av[5]);
+        max_meals = ft_atoi(av[5]);
         if (max_meals > 0)
             container->max_meals = max_meals;
     }
@@ -80,10 +80,10 @@ void ft_input_parse_n_init(t_container *container, char **av)
     int time_eat;
     int time_nap;
     
-    philo_count = ft_atol(av[1]);
-    time_die = ft_atol(av[2]);
-    time_eat = ft_atol(av[3]);
-    time_nap = ft_atol(av[4]);
+    philo_count = ft_atoi(av[1]);
+    time_die = ft_atoi(av[2]);
+    time_eat = ft_atoi(av[3]);
+    time_nap = ft_atoi(av[4]);
     if (philo_count <= 0 || time_die <= 0 || time_eat <= 0 || time_nap <= 0)
     {
         ft_error("insert valid numbers pls");

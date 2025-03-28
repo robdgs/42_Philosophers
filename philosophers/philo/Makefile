@@ -2,7 +2,7 @@ NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
 RM = rm -f
-SRCS = main.c parser.c utils.c philo_creator.c guardians.c
+SRCS = main.c parser.c utils.c philo_creator.c guardians.c synchro.c gnam.c
 
 all:	${NAME}
 		@echo   ${SIGNATURE}

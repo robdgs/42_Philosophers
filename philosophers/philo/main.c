@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:17:04 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/26 19:18:57 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/03/28 20:21:40 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int ac, char *av[])
 	{
 		ft_input_parse_n_init(&container, av);
 		ft_global_init(&container);
-		//3 ft_start_dining(&container);
+		ft_start(&container);
 		//4 ft_clean(&container); //triggered if philos are full or 1 philo dies
 	}
 	else

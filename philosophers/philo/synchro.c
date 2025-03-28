@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:27:53 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/27 18:42:51 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/03/28 20:22:25 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ bool	ft_get_bool(t_mutex *mutex, bool *val)
 	return(ret);
 }
 
-int	ft_set_int(t_mutex *mutex, int *dest, int val)
+void	ft_set_long(t_mutex *mutex, long *dest, long val)
 {
 	ft_mutex_caller(mutex, LOCK);
 	*dest = val;
 	ft_mutex_caller(mutex, UNLOCK);
 }
 
-int	ft_get_int(t_mutex *mutex, int *val)
+long	ft_get_long(t_mutex *mutex, long *val)
 {
-	int	ret;
+	long	ret;
 	
 	ft_mutex_caller(mutex, LOCK);
 	ret = *val;

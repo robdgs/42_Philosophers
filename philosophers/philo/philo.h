@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:07:49 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/27 18:43:21 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/03/28 19:16:49 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,23 @@ typedef	enum	e_opcode
 	DETACH
 }	t_opcode;
 
+typedef enum	e_tcode
+{
+	SEC,
+	MILLISEC,
+	MICROSEC
+}	t_tcode;
+
+typedef enum	e_status
+{
+	EATING,
+	THINKING,
+	SLEEPING,
+	DEAD,
+	TAKING_FFORK,
+	TAKING_SFORK,
+}	t_status;
+
 //new types to shorten my lines
 typedef pthread_mutex_t t_mutex;
 //
@@ -48,7 +65,6 @@ typedef struct s_container t_container; //declared here to avoid compiler's rage
 	Every philo needs two forks to eat from the single spaghetti plate:
 	we have collision if all the philos eat simultaneously
 */
-
 //what is a fork? a fork is simply a mutex: I'll have an array of mutex
 /* Per realizzare l'esclusione mutua(MUT EX) si assegna a un oggetto o porzione 
 di programma (sezione critica) un elemento che va sempre controllato prima 
@@ -68,25 +84,27 @@ typedef struct	s_fork
 typedef struct	s_philo
 {
 	int			philo_id; //NOT THE POSITION IN THE ARRAY
-	int		hm_meals; //meals counter
+	int			hm_meals; //meals counter
 	bool		is_full;
-	int		lmeal_time; //time passed from last meal
+	long		lmeal_time; //time passed from last meal
 	t_fork		f_fork;
 	t_fork		s_fork;
+	t_mutex		philo_mutex;
 	pthread_t	thread_id; //philo_id, philo === a thread
 	t_container *container;
 }				t_philo;
 //plus I need a struct where to put the input line data, a container
 struct s_container
 {
-	int	hm_philos; //how many philos
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_nap;
-	int	max_meals; //limit of how many meals each philo can have || FLAG
+	long	hm_philos; //how many philos
+	long	time_to_die;
+	long	time_to_eat;
+	long	time_to_nap;
+	long	max_meals; //limit of how many meals each philo can have || FLAG
 	bool	sync;
-	t_mutex	container_mtx;
-	int	start_simulation; //time when the sim starts
+	t_mutex	container_mtx; //avoid races while READING
+	t_mutex write_mtx; //avoid races while WRITING
+	long	start_simulation; //time when the sim starts
 	bool	end_sim; // triggered when a philo dies or all philos are full
 	t_philo	*philos; //ptr to array of philos
 	t_fork	*forks; //ptr to array of forks
@@ -94,6 +112,9 @@ struct s_container
 
 //utils
 bool	ft_error(const char *error);
+long	ft_get_time(t_tcode time_code);
+void 	ft_secured_usleep(long usec, t_container *container);
+void	ft_print_status(t_status status, t_philo *philo);
 //guardians
 void	*ft_malloc(size_t bytes);
 void	ft_mutex_caller(t_mutex *mutex, t_opcode opcode);
@@ -105,12 +126,15 @@ void	ft_input_parse_n_init(t_container *container, char **av);
 void	ft_global_init(t_container *container);
 //getters -> syncro
 bool	ft_get_bool(t_mutex *mutex, bool *val);
-int		ft_get_int(t_mutex *mutex, int *val);
+long	ft_get_long(t_mutex *mutex, long *val);
 //setters -> syncro
 void	ft_set_bool(t_mutex *mutex, bool *dest, bool val);
-int		ft_set_int(t_mutex *mutex, int *dest, int val);
+void	ft_set_long(t_mutex *mutex, long *dest, long val);
 //synchro and monitor
 void	ft_synchronizer(t_container	*container);
+bool	ft_isfinished(t_container *container);
+//gnam
+void	ft_start(t_container *container);
 
 
 #endif
