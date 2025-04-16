@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 18:35:45 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/28 20:16:08 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:42:44 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ ESEMPIO (4 + 1) % 5 = 0 La forchetta left dell'ultimo philo e' la 0
 CIRCULAR OBJECT ---->> MODULE OPERATOR %
 */
 //attenzione possibili deadlock qui
-static void ft_give_forks(t_philo *philo, t_fork *forks, int p)
+static void	ft_give_forks(t_philo *philo, t_fork *forks, int p)
 {
-	
-	if(philo->philo_id % 2 == 0)
+	if (philo->philo_id % 2 == 0)
 	{
 		philo->f_fork = forks[p];
 		philo->s_fork = forks[(p + 1) % philo->container->hm_philos];
@@ -53,9 +52,9 @@ static void ft_give_forks(t_philo *philo, t_fork *forks, int p)
 static void	ft_philo_init(t_container *container)
 {
 	int	i;
-	
+
 	i = -1;
-	while(++i < container->hm_philos)
+	while (++i < container->hm_philos)
 	{
 		container->philos[i].container = container;
 		container->philos[i].philo_id = i;
@@ -65,25 +64,22 @@ static void	ft_philo_init(t_container *container)
 		ft_give_forks(&container->philos[i], container->forks, i);
 	}
 	container->sync = false;
-	
 }
-	
+
 void	ft_global_init(t_container *container)
 {
 	int	i;
-	
+
 	i = -1;
 	container->end_sim = false;
 	container->philos = ft_malloc(sizeof(t_philo) * container->hm_philos);
 	ft_mutex_caller(&container->container_mtx, INIT);
 	ft_mutex_caller(&container->write_mtx, INIT);
 	container->forks = ft_malloc(sizeof(t_fork) * container->hm_philos);
-	while(++i < container->hm_philos)
+	while (++i < container->hm_philos)
 	{
-		ft_mutex_caller(&container->forks[i].fork,INIT);
+		ft_mutex_caller(&container->forks[i].fork, INIT);
 		container->forks[i].fork_id = i;
 	}
 	ft_philo_init(container);
 }
-
-

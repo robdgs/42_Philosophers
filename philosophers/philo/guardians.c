@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:08:10 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/28 20:00:51 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:02:26 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@
 void	*ft_malloc(size_t bytes)
 {
 	void	*allocated;
-	
+
 	allocated = malloc(bytes);
 	if (!allocated && ft_error("Malloc Error"))
-		return NULL;
-	return allocated;
+		return (NULL);
+	return (allocated);
 }
 
 //error proofified mutex, wwraaah
 static void	ft_mutex_guard(int status, t_opcode opcode)
 {
 	if (status == 0)
-		return;
-	else if (status == EINVAL && (opcode == LOCK || opcode == UNLOCK 
+		return ;
+	else if (status == EINVAL && (opcode == LOCK || opcode == UNLOCK
 			||opcode == DESTROY))
 		ft_error("Invalid value by mutex");
 	else if (status == EINVAL && opcode == INIT)
@@ -41,7 +41,7 @@ static void	ft_mutex_guard(int status, t_opcode opcode)
 	else if (status == ENOMEM)
 		ft_error("Not enough mem to create another mutex");
 	else if (status == EBUSY)
-		ft_error("the mutex is locked");	
+		ft_error("the mutex is locked");
 }
 
 void	ft_mutex_caller(t_mutex *mutex, t_opcode opcode)
@@ -54,7 +54,7 @@ void	ft_mutex_caller(t_mutex *mutex, t_opcode opcode)
 		ft_mutex_guard(pthread_mutex_init(mutex, NULL), opcode);
 	else if (opcode == DESTROY)
 		ft_mutex_guard(pthread_mutex_destroy(mutex), opcode);
-	else 
+	else
 		ft_error("Mutex Error, wrong opcode");
 }
 
@@ -62,7 +62,7 @@ void	ft_mutex_caller(t_mutex *mutex, t_opcode opcode)
 static void	ft_thread_guard(int status, t_opcode opcode)
 {
 	if (status == 0)
-		return;
+		return ;
 	else if (status == EINVAL && opcode == CREATE)
 		ft_error("Invalid settings in attr");
 	else if (status == EINVAL && (opcode == DETACH || opcode == JOIN))
