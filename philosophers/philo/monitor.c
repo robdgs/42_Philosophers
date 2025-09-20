@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 12:22:30 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/20 18:20:33 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/20 18:35:28 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	*ft_monitor(void *data)
 			ft_set_bool(&container->container_mtx, &container->end_sim, true);
 			return (NULL);
 		}
-		usleep(500);
+		usleep(100);
 	}
 	return (NULL);
 }
