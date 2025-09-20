@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:07:49 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/04/16 17:22:03 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/20 12:48:28 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ typedef enum e_status
 	THINKING,
 	SLEEPING,
 	DEAD,
-	TAKING_FFORK,
-	TAKING_SFORK,
+	TAKING_FORK, 
+	//TAKING_FFORK,
+	//TAKING_SFORK,
 }	t_status;
 
 //new types to shorten my lines
@@ -87,8 +88,8 @@ typedef struct s_philo
 	int			hm_meals; //meals counter
 	bool		is_full;
 	long		lmeal_time; //time passed from last meal
-	t_fork		f_fork;
-	t_fork		s_fork;
+	t_fork		*f_fork;
+	t_fork		*s_fork;
 	t_mutex		philo_mutex;
 	pthread_t	thread_id; //philo_id, philo === a thread
 	t_container	*container;
@@ -111,7 +112,7 @@ struct s_container
 };			
 
 //utils
-bool	ft_error(const char *error);
+int		ft_error(const char *error);
 long	ft_get_time(t_tcode time_code);
 void	ft_secured_usleep(long usec, t_container *container);
 void	ft_print_status(t_status status, t_philo *philo);
@@ -136,5 +137,9 @@ bool	ft_isfinished(t_container *container);
 //gnam
 void	ft_start(t_container *container);
 void	ft_gnam(t_philo *philo);
+//monitor
+void	*ft_monitor(void *data);
+//main
+void ft_clean(t_container *container);
 
 #endif

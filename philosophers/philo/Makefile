@@ -2,20 +2,20 @@ NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
 RM = rm -f
-SRCS = main.c parser.c utils.c philo_creator.c guardians.c synchro.c gnam.c
+SRCS = main.c parser.c utils.c philo_creator.c guardians.c synchro.c gnam.c monitor.c
 
 all:	${NAME}
 		@echo   ${SIGNATURE}
 
 ${NAME}: ${SRCS}
-	${CC}	${CFLAGS}	${SRCS} -o ${NAME}	
+	@${CC}	${CFLAGS}	${SRCS} -o ${NAME}	
 
 
 clean:
-	${RM}
+	@${RM}
 
 fclean:	clean
-	${RM}	${NAME}
+	@${RM}	${NAME}
 
 re:	fclean	all
 

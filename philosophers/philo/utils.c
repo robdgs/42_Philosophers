@@ -6,17 +6,16 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:17:18 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/04/16 16:59:39 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/20 12:44:33 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	ft_error(const char *error)
+int ft_error(const char *error)
 {
-	printf(RED"%s\n"RESET, error);
-	exit(EXIT_FAILURE);
-	return (true);
+    printf(RED"%s\n"RESET, error);
+    return (EXIT_FAILURE);
 }
 
 long	ft_get_time(t_tcode time_code)
@@ -67,17 +66,16 @@ void	ft_print_status(t_status status, t_philo *philo)
 	long	t_riman;
 
 	t_riman = ft_get_time(MILLISEC) - philo->container->start_simulation;
-	ft_mutex_caller (&philo->container->write_mtx, LOCK);
-	if ((status == TAKING_FFORK || status == TAKING_SFORK)
-		&& !ft_isfinished(philo->container))
-		printf (GREEN"%-6ld"RESET"%d took a fork.\n", t_riman, philo->philo_id);
+	ft_mutex_caller(&philo->container->write_mtx, LOCK);
+	if (status == TAKING_FORK && !ft_isfinished(philo->container))
+		printf("%-6ld %d has taken a fork\n", t_riman, philo->philo_id);
 	else if (status == EATING && !ft_isfinished(philo->container))
-		printf (GREEN"%-6ld"RESET"%d is eating.\n", t_riman, philo->philo_id);
+		printf("%-6ld %d is eating\n", t_riman, philo->philo_id);
 	else if (status == THINKING && !ft_isfinished(philo->container))
-		printf (GREEN"%-6ld"RESET"%d is thinking.\n", t_riman, philo->philo_id);
+		printf("%-6ld %d is thinking\n", t_riman, philo->philo_id);
 	else if (status == SLEEPING && !ft_isfinished(philo->container))
-		printf (GREEN"%-6ld"RESET"%d is sleeping.\n", t_riman, philo->philo_id);
+		printf("%-6ld %d is sleeping\n", t_riman, philo->philo_id);
 	else if (status == DEAD)
-		printf (RED"%-6ld"RESET"%d died.\n", t_riman, philo->philo_id);
+		printf("%-6ld %d died\n", t_riman, philo->philo_id);
 	ft_mutex_caller(&philo->container->write_mtx, UNLOCK);
 }

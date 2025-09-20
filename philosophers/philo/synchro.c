@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:27:53 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/03/28 20:22:25 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/20 12:09:43 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ test che può aver luogo ad intervalli di tempo prestabiliti, oppure nel
 tempo più breve possibile consentito dal sistema. */
 void	ft_synchronizer(t_container	*container)
 {
-	while(!ft_get_bool(&container->container_mtx, &container->sync))
+	while (!ft_get_bool(&container->container_mtx, &container->sync))
 		;
 }
 
@@ -35,11 +35,11 @@ void	ft_set_bool(t_mutex *mutex, bool *dest, bool val)
 bool	ft_get_bool(t_mutex *mutex, bool *val)
 {
 	bool	ret;
-	
+
 	ft_mutex_caller(mutex, LOCK);
 	ret = *val;
 	ft_mutex_caller(mutex, UNLOCK);
-	return(ret);
+	return (ret);
 }
 
 void	ft_set_long(t_mutex *mutex, long *dest, long val)
@@ -52,9 +52,9 @@ void	ft_set_long(t_mutex *mutex, long *dest, long val)
 long	ft_get_long(t_mutex *mutex, long *val)
 {
 	long	ret;
-	
+
 	ft_mutex_caller(mutex, LOCK);
 	ret = *val;
 	ft_mutex_caller(mutex, UNLOCK);
-	return(ret);
+	return (ret);
 }

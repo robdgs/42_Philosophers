@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 20:13:38 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/04/16 17:17:03 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/20 13:15:58 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ void	ft_input_parse_n_init(t_container *container, char **av)
 		return ;
 	}
 	container->hm_philos = philo_count;
-	container->time_to_die = time_die * 1e3;
-	container->time_to_eat = time_eat * 1e3;
-	container->time_to_nap = time_nap * 1e3;
+	container->time_to_die = time_die;
+	container->time_to_eat = time_eat;
+	container->time_to_nap = time_nap;
 	ft_parse_max_meals(container, av);
 }
