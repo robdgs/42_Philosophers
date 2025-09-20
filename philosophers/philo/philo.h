@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:07:49 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/20 17:26:38 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/20 18:10:31 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef enum e_status
 	THINKING,
 	SLEEPING,
 	DEAD,
-	TAKING_FORK, 
+	TAKING_FORK,
 	//TAKING_FFORK,
 	//TAKING_SFORK,
 }	t_status;
@@ -85,7 +85,7 @@ typedef struct s_fork
 typedef struct s_philo
 {
 	int			philo_id; //NOT THE POSITION IN THE ARRAY
-	long			hm_meals; //meals counter
+	long		hm_meals; //meals counter
 	bool		is_full;
 	long		lmeal_time; //time passed from last meal
 	t_fork		*f_fork;
@@ -136,10 +136,14 @@ void	ft_synchronizer(t_container	*container);
 bool	ft_isfinished(t_container *container);
 //gnam
 void	ft_start(t_container *container);
+void	ft_think(t_philo *philo);
 void	ft_gnam(t_philo *philo);
+bool	ft_isfinished(t_container *container);
+void	*ft_simulation(void *data);
+
 //monitor
 void	*ft_monitor(void *data);
 //main
-void 	ft_clean(t_container *container);
+void	ft_clean(t_container *container);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 12:22:30 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/20 17:23:22 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/20 18:20:33 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@ static bool	ft_philo_died(t_philo *philo)
 {
 	long	elapsed;
 	long	time_to_die;
+	long	last_meal;
 
 	if (ft_get_bool(&philo->philo_mutex, &philo->is_full))
 		return (false);
-	elapsed = ft_get_time(MILLISEC) - ft_get_long(&philo->philo_mutex,
-			&philo->lmeal_time);
+	last_meal = ft_get_long(&philo->philo_mutex, &philo->lmeal_time);
+	if (last_meal <= 0)
+		return (false);
+	elapsed = ft_get_time(MILLISEC) - last_meal;
 	time_to_die = philo->container->time_to_die;
+	if (elapsed < 0)
+		return (false);
 	return (elapsed >= time_to_die);
 }
 
