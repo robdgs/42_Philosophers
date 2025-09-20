@@ -6,16 +6,17 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:17:18 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/20 12:44:33 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/20 15:43:54 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int ft_error(const char *error)
+bool	ft_error(const char *error)
 {
-    printf(RED"%s\n"RESET, error);
-    return (EXIT_FAILURE);
+	printf(RED"%s\n"RESET, error);
+	exit(EXIT_FAILURE);
+	return (true);
 }
 
 long	ft_get_time(t_tcode time_code)

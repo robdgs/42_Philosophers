@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:07:49 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/20 12:48:28 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/20 15:45:50 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ struct s_container
 };			
 
 //utils
-int		ft_error(const char *error);
+bool	ft_error(const char *error);
 long	ft_get_time(t_tcode time_code);
 void	ft_secured_usleep(long usec, t_container *container);
 void	ft_print_status(t_status status, t_philo *philo);
@@ -140,6 +140,6 @@ void	ft_gnam(t_philo *philo);
 //monitor
 void	*ft_monitor(void *data);
 //main
-void ft_clean(t_container *container);
+void 	ft_clean(t_container *container);
 
 #endif

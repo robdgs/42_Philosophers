@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 18:35:45 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/20 13:40:35 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/20 16:02:23 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,16 @@ ESEMPIO (4 + 1) % 5 = 0 La forchetta left dell'ultimo philo e' la 0
 CIRCULAR OBJECT ---->> MODULE OPERATOR %
 */
 //attenzione possibili deadlock qui
-// In philo_creator.c - make sure this is correct:
 static void	ft_give_forks(t_philo *philo, t_fork *forks, int p)
 {
-	int	philo_nb;
-
-	philo_nb = philo->container->hm_philos;
-	
-	// Avoid deadlock: different order for even/odd philosophers
 	if (philo->philo_id % 2 == 0)
 	{
 		philo->f_fork = &forks[p];
-		philo->s_fork = &forks[(p + 1) % philo_nb];
+		philo->s_fork = &forks[(p + 1) % philo->container->hm_philos];
 	}
 	else
 	{
-		philo->f_fork = &forks[(p + 1) % philo_nb];
+		philo->f_fork = &forks[(p + 1) % philo->container->hm_philos];
 		philo->s_fork = &forks[p];
 	}
 }
@@ -64,8 +58,6 @@ static void	ft_philo_init(t_container *container)
 	{
 		container->philos[i].container = container;
 		container->philos[i].philo_id = i + 1;
-		container->philos[i].lmeal_time = 0;
-		container->start_simulation = 0;
 		container->philos[i].is_full = false;
 		container->philos[i].hm_meals = 0;
 		ft_mutex_caller(&container->philos[i].philo_mutex, INIT);
