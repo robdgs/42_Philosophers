@@ -6,35 +6,12 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 18:35:45 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/20 16:02:23 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/20 17:24:05 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//todo:
-// set: bool end_sim
-//		t_philo	*philos
-//philo:
-/* 	
-	int			philo_id;
-	int		hm_meals; //meals counter
-	bool		is_full;
-	int		lmeal_time; //time passed from last meal
-	t_fork		r_fork;
-	t_fork		l_fork;
-	pthread_t	thread_id; //philo_id, philo === a thread
-	t_container *container; */
-//p -> position in container == THE i value of philo init, i know how 
-//	many philos are there
-/* 
-right fork -> philo_id - 1 == position in the array
-la frchetta sinistra dell'ultimo filosofo e' la forchetta zero, quindi
-left fork -> (philo_id + 1) % quanti filosofi ossia p
-ESEMPIO (4 + 1) % 5 = 0 La forchetta left dell'ultimo philo e' la 0
-CIRCULAR OBJECT ---->> MODULE OPERATOR %
-*/
-//attenzione possibili deadlock qui
 static void	ft_give_forks(t_philo *philo, t_fork *forks, int p)
 {
 	if (philo->philo_id % 2 == 0)
@@ -60,6 +37,7 @@ static void	ft_philo_init(t_container *container)
 		container->philos[i].philo_id = i + 1;
 		container->philos[i].is_full = false;
 		container->philos[i].hm_meals = 0;
+		container->philos[i].lmeal_time = 0;
 		ft_mutex_caller(&container->philos[i].philo_mutex, INIT);
 		ft_give_forks(&container->philos[i], container->forks, i);
 	}

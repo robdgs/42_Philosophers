@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 12:22:30 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/20 12:49:44 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/20 17:23:22 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	*ft_monitor(void *data)
 	while (!ft_isfinished(container))
 	{
 		i = -1;
-		while (++i < container->hm_philos)
+		while (++i < container->hm_philos && !ft_isfinished(container))
 		{
 			if (ft_philo_died(&container->philos[i]))
 			{
@@ -67,7 +67,7 @@ void	*ft_monitor(void *data)
 			ft_set_bool(&container->container_mtx, &container->end_sim, true);
 			return (NULL);
 		}
-		usleep(1000);
+		usleep(500);
 	}
 	return (NULL);
 }

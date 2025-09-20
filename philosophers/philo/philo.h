@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:07:49 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/20 15:45:50 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/20 17:26:38 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct s_fork
 typedef struct s_philo
 {
 	int			philo_id; //NOT THE POSITION IN THE ARRAY
-	int			hm_meals; //meals counter
+	long			hm_meals; //meals counter
 	bool		is_full;
 	long		lmeal_time; //time passed from last meal
 	t_fork		*f_fork;
