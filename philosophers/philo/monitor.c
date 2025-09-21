@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 12:22:30 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/20 18:35:28 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/21 18:08:40 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	ft_philo_died(t_philo *philo)
 	time_to_die = philo->container->time_to_die;
 	if (elapsed < 0)
 		return (false);
-	return (elapsed >= time_to_die);
+	return (elapsed >= (time_to_die + 1));
 }
 
 static bool	ft_all_full(t_container *container)

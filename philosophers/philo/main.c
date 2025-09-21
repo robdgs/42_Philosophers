@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:17:04 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/21 16:07:17 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/21 18:22:42 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	ft_clean(t_container *container)
 
 void debug_fork_assignment(t_container *container)
 {
-    printf("=== FORK ASSIGNMENT ===\n");
-    for (int i = 0; i < container->hm_philos; i++) {
-        printf("Philosopher %d: f_fork=%d, s_fork=%d\n", 
-               container->philos[i].philo_id,
-               container->philos[i].f_fork->fork_id,
-               container->philos[i].s_fork->fork_id);
-    }
-    printf("=======================\n");
+	printf("=== FORK ASSIGNMENT ===\n");
+	for (int i = 0; i < container->hm_philos; i++) {
+		printf("Philosopher %d: f_fork=%d, s_fork=%d\n", 
+			   container->philos[i].philo_id,
+			   container->philos[i].f_fork->fork_id,
+			   container->philos[i].s_fork->fork_id);
+	}
+	printf("=======================\n");
 }
 
 int	main(int ac, char *av[])

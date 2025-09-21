@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 18:35:45 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/20 17:24:05 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/21 18:07:33 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,22 @@
 
 static void	ft_give_forks(t_philo *philo, t_fork *forks, int p)
 {
-	if (philo->philo_id % 2 == 0)
+	int	left_fork = p;
+	int	right_fork = (p + 1) % philo->container->hm_philos;
+	if (left_fork < right_fork)
 	{
-		philo->f_fork = &forks[p];
-		philo->s_fork = &forks[(p + 1) % philo->container->hm_philos];
+		philo->f_fork = &forks[left_fork];
+		philo->s_fork = &forks[right_fork];
 	}
 	else
 	{
-		philo->f_fork = &forks[(p + 1) % philo->container->hm_philos];
-		philo->s_fork = &forks[p];
+		philo->f_fork = &forks[right_fork];
+		philo->s_fork = &forks[left_fork];
+	}
+	if (philo->container->hm_philos % 2 == 1 && p == philo->container->hm_philos - 1)
+	{
+		philo->f_fork = &forks[right_fork];
+		philo->s_fork = &forks[left_fork];
 	}
 }
 
