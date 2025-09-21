@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 19:14:44 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/21 18:21:54 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/21 18:31:32 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ bool	ft_isfinished(t_container *container)
 
 void	ft_think(t_philo *philo)
 {
-	long think_time = 0;
-	
+	long	think_time;
+
+	think_time = 0;
 	ft_print_status(THINKING, philo);
-	if (philo->container->hm_philos % 2 == 1) {
-		think_time = (philo->container->time_to_eat - philo->container->time_to_nap) / 2;
+	if (philo->container->hm_philos % 2 == 1)
+	{
+		think_time = (philo->container->time_to_eat
+				- philo->container->time_to_nap) / 2;
 		if (think_time > 0)
 			ft_secured_usleep(think_time * 1000, philo->container);
 	}
@@ -74,18 +77,21 @@ static void	ft_philo_routine(t_philo *philo)
 	}
 }
 
-void *ft_simulation(void *data)
+void	*ft_simulation(void *data)
 {
-	t_philo *philo = (t_philo *)data;
-	
-	if (!philo) {
+	t_philo	*philo;
+
+	philo = (t_philo *)data;
+	if (!philo)
+	{
 		printf("[ERROR] Philo struct is NULL\n");
 		return (NULL);
 	}
 	ft_synchronizer(philo->container);
 	if (philo->philo_id % 2 == 1)
 		usleep(100);
-	if (philo->container->hm_philos == 1) {
+	if (philo->container->hm_philos == 1)
+	{
 		ft_gnam(philo);
 		return (NULL);
 	}
