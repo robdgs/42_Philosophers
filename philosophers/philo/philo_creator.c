@@ -6,34 +6,35 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 18:35:45 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/21 18:26:11 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/26 20:42:18 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	ft_give_forks(t_philo *philo, t_fork *forks, int p)
+static void	ft_give_forks(t_philo *philo, t_fork *forks, int pos)
 {
-	int	left_fork;
-	int	right_fork;
+	int	total_philos;
+	int	left;
+	int	right;
 
-	left_fork = p;
-	right_fork = (p + 1) % philo->container->hm_philos;
-	if (left_fork < right_fork)
+	total_philos = philo->container->hm_philos;
+	left = pos;
+	right = (pos + 1) % total_philos;
+	if (total_philos % 2 == 1 && pos == total_philos - 1)
 	{
-		philo->f_fork = &forks[left_fork];
-		philo->s_fork = &forks[right_fork];
+		philo->f_fork = &forks[right];
+		philo->s_fork = &forks[left];
+	}
+	else if (left < right)
+	{
+		philo->f_fork = &forks[left];
+		philo->s_fork = &forks[right];
 	}
 	else
 	{
-		philo->f_fork = &forks[right_fork];
-		philo->s_fork = &forks[left_fork];
-	}
-	if (philo->container->hm_philos % 2 == 1
-		&& p == philo->container->hm_philos - 1)
-	{
-		philo->f_fork = &forks[right_fork];
-		philo->s_fork = &forks[left_fork];
+		philo->f_fork = &forks[right];
+		philo->s_fork = &forks[left];
 	}
 }
 

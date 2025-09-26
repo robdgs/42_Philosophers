@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:17:18 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/20 17:53:52 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/26 20:50:00 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,28 @@ long	ft_get_time(t_tcode time_code)
 void	ft_secured_usleep(long usec, t_container *container)
 {
 	long	start;
-	long	trascorso;
-	long	rimasto;
+	long	elapsed;
+	long	remaining;
 
 	start = ft_get_time(MICROSEC);
-	while (ft_get_time(MICROSEC) - start < usec)
+	elapsed = ft_get_time(MICROSEC) - start;
+	while (elapsed < usec)
 	{
 		if (ft_isfinished(container))
 			break ;
-		trascorso = ft_get_time(MICROSEC) - start;
-		rimasto = usec - trascorso;
-		if (rimasto > 1e3)
-			usleep(rimasto / 2);
-		else
+		remaining = usec - elapsed;
+		if (remaining < 500)
 		{
 			while (ft_get_time(MICROSEC) - start < usec)
-				;
+			{
+				if (ft_isfinished(container))
+					break ;
+			}
+			break ;
 		}
+		else if (remaining > 1000)
+			usleep(remaining / 3);
+		elapsed = ft_get_time(MICROSEC) - start;
 	}
 }
 

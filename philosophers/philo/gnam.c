@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 19:14:44 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/21 18:31:32 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/26 20:40:24 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,22 @@ void	ft_think(t_philo *philo)
 	ft_print_status(THINKING, philo);
 	if (philo->container->hm_philos % 2 == 1)
 	{
-		think_time = (philo->container->time_to_eat
-				- philo->container->time_to_nap) / 2;
-		if (think_time > 0)
-			ft_secured_usleep(think_time * 1000, philo->container);
+		think_time = (philo->container->time_to_eat * 2)
+			- philo->container->time_to_nap;
+		if (think_time < 0)
+			think_time = 1;
+		if (think_time > philo->container->time_to_die / 3)
+			think_time = philo->container->time_to_die / 3;
+		ft_secured_usleep(think_time * 1000, philo->container);
 	}
+	else
+		ft_secured_usleep(1000, philo->container);
 }
 
 void	ft_gnam(t_philo *philo)
 {
+	long	eat_start;
+
 	ft_mutex_caller(&philo->f_fork->fork, LOCK);
 	ft_print_status(TAKING_FORK, philo);
 	if (philo->container->hm_philos == 1)
@@ -45,14 +52,14 @@ void	ft_gnam(t_philo *philo)
 	}
 	ft_mutex_caller(&philo->s_fork->fork, LOCK);
 	ft_print_status(TAKING_FORK, philo);
-	ft_set_long(&philo->philo_mutex, &philo->lmeal_time, ft_get_time(MILLISEC));
+	eat_start = ft_get_time(MILLISEC);
+	ft_set_long(&philo->philo_mutex, &philo->lmeal_time, eat_start);
 	ft_mutex_caller(&philo->philo_mutex, LOCK);
 	philo->hm_meals++;
 	ft_mutex_caller(&philo->philo_mutex, UNLOCK);
 	ft_print_status(EATING, philo);
 	ft_secured_usleep(philo->container->time_to_eat * 1000, philo->container);
-	if (philo->container->max_meals > 0
-		&& ft_get_long(&philo->philo_mutex,
+	if (philo->container->max_meals > 0 && ft_get_long(&philo->philo_mutex,
 			&philo->hm_meals) >= philo->container->max_meals)
 		ft_set_bool(&philo->philo_mutex, &philo->is_full, true);
 	ft_mutex_caller(&philo->f_fork->fork, UNLOCK);

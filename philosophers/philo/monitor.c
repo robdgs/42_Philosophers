@@ -6,7 +6,7 @@
 /*   By: rd-agost <rd-agost@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 12:22:30 by rd-agost          #+#    #+#             */
-/*   Updated: 2025/09/21 18:23:57 by rd-agost         ###   ########.fr       */
+/*   Updated: 2025/09/26 20:37:41 by rd-agost         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ static bool	ft_philo_died(t_philo *philo)
 		return (false);
 	elapsed = ft_get_time(MILLISEC) - last_meal;
 	time_to_die = philo->container->time_to_die;
-	if (elapsed < 0)
-		return (false);
-	return (elapsed >= (time_to_die + 1));
+	return (elapsed >= (time_to_die + 2));
 }
 
 static bool	ft_all_full(t_container *container)
